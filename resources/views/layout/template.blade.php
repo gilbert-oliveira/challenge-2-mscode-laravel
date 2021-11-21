@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{config('app.locale')}}">
-
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -14,12 +13,13 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <!-- Theme style CDN-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0-rc/css/adminlte.min.css" integrity="sha512-YOsl4pnOb5NC868yn1JxAzjJsWkLNtP53uc3OcyAl0Q2R1cwo/mdI1hHSQM8gbIxWj97mKeLoD9R0aiYibFQAA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @yield('css')
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
     <!-- Navbar -->
@@ -34,7 +34,7 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-@extends('layout.components.sidebar')
+@include('layout.components.sidebar')
 <!-- END Main Sidebar Container -->
 
     <!-- Content Wrapper. Contains page content -->
@@ -44,14 +44,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">@yield('header')</h1>
+                        <h1 class="m-0">@yield('title')</h1>
                     </div><!-- /.col -->
-                    <div class="col-sm-6">
+                    <nav class="col-sm-6" aria-label="breadcrumb">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{getenv('APP_URL')}}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">@yield('title')</li>
+                            <li class="breadcrumb-item"><a href="{{route('dashboard.home')}}">Dashboard</a></li>
+                            @yield('breadcrumb')
                         </ol>
-                    </div><!-- /.col -->
+                    </nav><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -71,7 +71,7 @@
     @yield('modals')
 
     <!-- Main Footer -->
-@extends('layout.components.footer')
+@include('layout.components.footer')
 <!-- END Main Footer -->
 </div>
 <!-- ./wrapper -->
