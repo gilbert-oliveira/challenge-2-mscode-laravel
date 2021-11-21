@@ -15,6 +15,7 @@ class CreateAttachmentsTable extends Migration
     {
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tickets_id')->nullable()->references('id')->on('tickets');
             $table->string('path', 255);
             $table->timestamps();
         });
