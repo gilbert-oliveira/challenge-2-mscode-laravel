@@ -13,6 +13,12 @@ class Category extends Model
         'name'
     ];
 
+    // Relationships hasMany
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'categories_id')->get();
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -22,10 +28,4 @@ class Category extends Model
         'master' => 'boolean',
         'active' => 'boolean',
     ];
-
-    // Relationships hasMany
-    public function tickets()
-    {
-        return $this->hasMany(Ticket::class, 'categories_id')->get();
-    }
 }
