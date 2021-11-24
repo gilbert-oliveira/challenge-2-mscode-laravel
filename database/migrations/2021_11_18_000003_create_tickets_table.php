@@ -19,7 +19,7 @@ class CreateTicketsTable extends Migration
             $table->foreignId('categories_id')->references('id')->on('categories');
             $table->foreignId('customers_id')->references('id')->on('customers');
             $table->string('title', 255);
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->boolean('finished')->default(false);
             $table->boolean('reopened')->default(false);
             $table->timestamps();
