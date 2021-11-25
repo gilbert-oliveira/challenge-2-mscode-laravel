@@ -4,6 +4,7 @@ use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UsersController;
 use App\Models\Attachment;
@@ -25,20 +26,32 @@ Route::prefix('dashboard')->group(function () {
     //Rota para a página inicial do Dashboard
     Route::get('home', [HomeController::class, 'getHome'])->name('dashboard.home');
 
-    // Rota para listagem de usuários
-    Route::get('usuarios', [UsersController::class, 'getUsers'])->name('dashboard.users');
-    // Rota para cadastro de usuários
-    Route::post('usuarios', [UsersController::class, 'postUsers'])->name('dashboard.users');
+    // Grupo de rotas para usuários
+    Route::prefix('usuarios')->group(function () {
+
+        // Rota para listagem de usuários
+        Route::get('/', [UsersController::class, 'getUsers'])->name('dashboard.users');
+        // Rota para cadastro de usuários
+        Route::post('/', [UsersController::class, 'postUsers'])->name('dashboard.users');
+
+        // Rota para desativação de usuários
+        Route::post('desativar', [UsersController::class, 'disableUser'])->name('dashboard.users.disable');
+
+        //Rota para ativação de usuários
+        Route::post('ativar', [UsersController::class, 'enableUser'])->name('dashboard.users.enable');
+    });
+
 
     // Rota para listagem de clientes
     Route::get('clientes', [CustomerController::class, 'getCustomers'])->name('dashboard.customers');
     // Rota para cadastro de clientes
     Route::post('clientes', [CustomerController::class, 'postCustomers'])->name('dashboard.customers');
 
+    // Rota para deletar o attachment
     Route::delete('attachment/deletar/{id}', [AttachmentController::class, 'deleteAttachment'])->name('dashboard.attachment.delete');
 
     // Grupo de rotas para tickets
-    Route::prefix('/tickets')->group(function () {
+    Route::prefix('tickets')->group(function () {
 
         // Rota para detalhes de um ticket
         Route::get('detalhes/{id}', [TicketController::class, 'detailTicket'])->name('dashboard.tickets.details');
@@ -58,5 +71,8 @@ Route::prefix('dashboard')->group(function () {
         Route::get('categorias', [CategoryController::class, 'getCategories'])->name('dashboard.tickets.categories');
         // Rota para cadastro de categorias de tickets
         Route::post('categorias', [CategoryController::class, 'postCategories'])->name('dashboard.tickets.categories');
+
+        // Rota para cadastro de observações de um ticket
+        Route::post('observacao/cadastrar', [ObservationController::class, 'postObservation'])->name('dashboard.tickets.observation');
     });
 });
