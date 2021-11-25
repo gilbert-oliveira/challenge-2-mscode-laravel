@@ -31,6 +31,11 @@ class Ticket extends Model
         return $this->hasMany(Attachment::class, 'tickets_id')->get();
     }
 
+    public function observations()
+    {
+        return $this->hasMany(Observation::class, 'tickets_id')->get();
+    }
+
     public function customer()
     {
         return $this->hasOne(Customer::class, 'id', 'customers_id')->first();
