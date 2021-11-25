@@ -15,18 +15,16 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->string('cpf', 11)->unique();
-            $table->string('email', 255)->unique();
-            $table->boolean('master')->default(false);
-            $table->boolean('active')->default(true);
-            $table->string('password', 255);
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->rememberToken();
+            $table->foreignId('current_team_id')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }
-
-
 
     /**
      * Reverse the migrations.
@@ -38,4 +36,3 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
     }
 }
-
