@@ -76,3 +76,7 @@ Route::prefix('dashboard')->group(function () {
         Route::post('observacao/cadastrar', [ObservationController::class, 'postObservation'])->name('dashboard.tickets.observation');
     });
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
