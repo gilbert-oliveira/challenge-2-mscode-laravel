@@ -1,22 +1,35 @@
 <?php
 
-use App\Http\Controllers\AttachmentController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ObservationController;
-use App\Http\Controllers\TicketController;
-use App\Http\Controllers\UsersController;
-use App\Models\Attachment;
+use App\Http\Controllers\{
+    AttachmentController,
+    CategoryController,
+    CustomerController,
+    HomeController,
+    ObservationController,
+    TicketController,
+    UsersController,
+};
+
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
 //Rota para a página inicial do dashboard
-Route::get('/', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
     return redirect(route('dashboard.home'));
 });
 
 // Grupo de rotas para o Dashboard
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware(['auth:sanctum', 'verified'])->group(function () {
 
     //Rota para a página inicial do Dashboard
     Route::get('/', function () {
@@ -54,7 +67,7 @@ Route::prefix('dashboard')->group(function () {
     Route::prefix('tickets')->group(function () {
 
         // Rota para detalhes de um ticket
-        Route::get('detalhes/{id}', [TicketController::class, 'detailTicket'])->name('dashboard.tickets.details');
+        Route::get('detalhes/{id}', [HomeController::class, 'detailTicket'])->name('dashboard.tickets.details');
 
         // Rota para listagem de tickets abertos
         Route::get('abertos', [TicketController::class, 'getOpenTickets'])->name('dashboard.tickets.open');
@@ -76,7 +89,3 @@ Route::prefix('dashboard')->group(function () {
         Route::post('observacao/cadastrar', [ObservationController::class, 'postObservation'])->name('dashboard.tickets.observation');
     });
 });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
