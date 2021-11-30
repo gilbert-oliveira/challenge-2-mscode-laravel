@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Customer;
 //use App\Models\Ticket;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TicketFactory extends Factory
@@ -29,6 +30,7 @@ class TicketFactory extends Factory
             'description' => $this->faker->unique()->paragraph(),
             'finished' => $this->faker->boolean(),
             'reopened' => $this->faker->boolean(),
+            'token' => Str::random(32),
             'created_at' => $days[rand(0, count($days) -1)],
         ];
     }
