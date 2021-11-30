@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
+use Tigo\DocumentBr\Cnpj;
+use Tigo\DocumentBr\Cpf;
 
 class CustomerController extends Controller
 {
@@ -18,6 +20,14 @@ class CustomerController extends Controller
         $customer = new Customer();
         $customer->fill($request->all('name', 'email'));
         $customer->document = preg_replace('/\D/', '', $request->document);
+
+        if (strlen($customer->document) == 11 and !(new Cpf())->check($customer->document))
+            return redirect()->back()->withInput()->with('error', 'CPF inválido');
+        if (strlen($customer->document) == 14 and !(new Cnpj())->check($customer->document))
+            return redirect()->back()->withInput()->with('error', 'CNPJ inválido');
+
+        if (strlen($customer->document) < 14 and strlen($customer->document) > 11)
+            return redirect()->back()->withInput()->with('error', 'Documento inválido');
 
         if (Customer::where('email', request('email'))->first())
             return redirect()->back()->withInput()->with('error', 'Email já cadastrado!');
