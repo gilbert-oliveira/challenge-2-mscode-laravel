@@ -40,4 +40,9 @@ class Ticket extends Model
     {
         return $this->hasOne(Customer::class, 'id', 'customers_id')->first();
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'users_id')->first();
+    }
 }

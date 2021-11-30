@@ -16,7 +16,7 @@ class Category extends Model
     // Relationships hasMany
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'categories_id')->get();
+        return $this->hasOne(Ticket::class, 'categories_id' )->get();
     }
 
     /**

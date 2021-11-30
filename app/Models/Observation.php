@@ -9,8 +9,18 @@ class Observation extends Model
 {
     use HasFactory;
 
-    public function User()
+    public function user()
     {
-        return $this->hasOne(User::class, 'id')->first();
+        return $this->belongsTo(User::class, 'users_id')->first();
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(User::class, 'customers_id')->first();
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class, 'tickets_id')->first();
     }
 }
