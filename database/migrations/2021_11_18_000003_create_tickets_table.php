@@ -22,6 +22,7 @@ class CreateTicketsTable extends Migration
             $table->longText('description')->nullable();
             $table->boolean('finished')->default(false);
             $table->boolean('reopened')->default(false);
+            $table->string('token', 32)->unique();
             $table->timestamps();
         });
     }

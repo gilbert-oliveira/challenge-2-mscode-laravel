@@ -16,8 +16,10 @@ class CreateObservationsTable extends Migration
         Schema::create('observations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tickets_id')->references('id')->on('tickets');
-            $table->foreignId('users_id')->references('id')->on('users');
+            $table->foreignId('users_id')->nullable()->references('id')->on('users');
             $table->text('text');
+            $table->boolean('by_customer')->default(false);
+            $table->boolean('public')->default(false);
             $table->timestamps();
         });
     }
