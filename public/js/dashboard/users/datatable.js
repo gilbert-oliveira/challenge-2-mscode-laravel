@@ -1,5 +1,5 @@
 $(function () {
-  $("#users").DataTable({
+  $("#usuarios").DataTable({
     "dom": 'Bfrtip',
     "responsive": true,
     "buttons": ["pdf"],
