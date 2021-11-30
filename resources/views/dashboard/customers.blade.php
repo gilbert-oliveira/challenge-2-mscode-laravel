@@ -107,7 +107,7 @@
                                 <div class="col">
                                     <label for="document" class="form-label">CPF / CNPJ</label>
                                     <input type="text" class="form-control input-document" id="document"
-                                           name="document">
+                                           name="document"  value="{{old('document')}}">
                                 </div>
                             </div>
                         </div>
