@@ -42,7 +42,7 @@
                                 <div class="col d-flex justify-content-between">
                                     <a class="btn btn-info btn-sm"
                                        href="{{route('dashboard.tickets.details', $ticket->id)}}">
-                                        <i class="fas fa-info-circle"></i> Detalhes
+                                        Detalhes
                                     </a>
 
                                     <form method="POST" id="assumed-tickets"
@@ -53,7 +53,7 @@
 
                                         <a class="btn btn-success btn-sm assumed-ticket"
                                            data-id="{{$ticket->id}}">
-                                            <i class="fas fa-user-tag"></i> Assumir
+                                            Assumir
                                         </a>
                                     </form>
 

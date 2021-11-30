@@ -39,8 +39,8 @@
                         <td>{{$ticket->created_at}}</td>
                         <td class="text-center">
                             <div class="row">
-                                <div class="col d-flex justify-content-between">
-                                    <a class="btn btn-info btn-sm assumed-ticket"
+                                <div class="col d-flex justify-content-center">
+                                    <a class="btn btn-info btn-sm assumed-ticket mx-1"
                                        href="{{route('dashboard.tickets.details', $ticket->id)}}">
                                         <i class="fas fa-info-circle"></i> Detalhes
                                     </a>
@@ -53,7 +53,7 @@
                                         <input type="hidden" id="input-finish-ticket" name="id"
                                                value="">
 
-                                        <a class="btn btn-secondary btn-sm finish-ticket"
+                                        <a class="btn btn-secondary btn-sm finish-ticket mx-1"
                                            data-id="{{$ticket->id}}">
                                             <i class="fas fa-user-tag"></i> Finalizar
                                         </a>
@@ -61,7 +61,7 @@
 
                                     <button type="button" data-toggle="modal" data-id="{{$ticket->id}}"
                                             data-target="#transfer-ticket"
-                                            class="btn btn-success btn-sm transfer-ticket">
+                                            class="btn btn-success btn-sm transfer-ticket mx-1">
                                         <i class="fas fa-exchange-alt"></i> Transferir
                                     </button>
                                 </div>
