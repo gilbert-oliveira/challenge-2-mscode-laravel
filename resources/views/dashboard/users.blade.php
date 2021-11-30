@@ -15,7 +15,7 @@
 @section('content')
     <div class="row mb-2 ">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#cadastroUsuario">Cadastrar</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#create-user">Cadastrar</button>
         </div>
     </div>
 
@@ -28,63 +28,54 @@
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>E-mail</th>
-{{--                    <th>Ativo</th>--}}
                     <th>Criado em</th>
-                    <th>Editado em</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>
 
-
                 @foreach($users as $user)
-                    <tr>
-                        <td>
-                            {{$user->name}}
-                            @if($user->master)
-                                &nbsp;<span class="badge badge-info">Master</span>
-                            @endif
-
-                        </td>
-                        <td>{{$user->cpf}}</td>
-                        <td>{{$user->email}}</td>
-{{--                        <td>--}}
-{{--                            @if($user->active)--}}
-{{--                                &nbsp;<span class="badge badge-success w-75">Sim</span>--}}
-{{--                            @else--}}
-{{--                                &nbsp;<span class="badge badge-danger w-75">Não</span>--}}
-{{--                            @endif--}}
-{{--                        </td>--}}
-                        <td>{{$user->created_at}}</td>
-                        <td>{{$user->updated_at}}</td>
-                        <td class="text-center">
-                            <div class="col-6">
-                                @if($user->active)
-                                    <form id="disble-user"
-                                          action="{{route('dashboard.users.disable')}}"
-                                          method="POST">
-                                        @csrf
-                                        <input type="hidden" name="id" value="" id="input-disble-user">
-                                        <a class="btn btn-sm btn-danger disable-confirm"
-                                           data-id="{{$user->id}}">
-                                            <i class="fas fa-user-slash"></i> Desativar
-                                        </a>
-                                    </form>
-                                @else
-                                    <form id="enable-user"
-                                          action="{{route('dashboard.users.enable')}}"
-                                          method="POST">
-                                        @csrf
-                                        <input type="hidden" name="id" value="" id="input-enable-user">
-                                        <a class="btn btn-sm btn-success enable-confirm"
-                                           data-id="{{$user->id}}">
-                                            <i class="fas fa-user-plus"></i>
-                                        </a>
-                                    </form>
+                    @if($user->id != auth()->user()->id)
+                        <tr>
+                            <td>
+                                {{$user->name}}
+                                @if($user->master)
+                                    &nbsp;<span class="badge badge-info">Master</span>
                                 @endif
-                            </div>
-                        </td>
-                    </tr>
+
+                            </td>
+                            <td>{{$user->cpf}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->created_at}}</td>
+                            <td class="text-center">
+                                <div class="col-6">
+                                    @if($user->active)
+                                        <form id="disble-user"
+                                              action="{{route('dashboard.users.disable')}}"
+                                              method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="" id="input-disble-user">
+                                            <a class="btn btn-sm btn-danger disable-confirm"
+                                               data-id="{{$user->id}}">
+                                                <i class="fas fa-user-slash"></i>
+                                            </a>
+                                        </form>
+                                    @else
+                                        <form id="enable-user"
+                                              action="{{route('dashboard.users.enable')}}"
+                                              method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="" id="input-enable-user">
+                                            <a class="btn btn-sm btn-success enable-confirm"
+                                               data-id="{{$user->id}}">
+                                                <i class="fas fa-user-plus"></i>
+                                            </a>
+                                        </form>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach()
 
                 </tbody>
@@ -97,7 +88,7 @@
 
 @section('modals')
     <!-- Modal Cadastro Usuário-->
-    <div class="modal fade" id="cadastroUsuario" tabindex="-1" role="dialog" aria-labelledby="modalCadastroUsuario"
+    <div class="modal fade" id="create-user" tabindex="-1" role="dialog" aria-labelledby="create-user"
          aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -108,25 +99,36 @@
                     </button>
                 </div>
                 <!-- form start -->
-                <form id="formCadastroUsuario" method="POST">
+                <form class="form-validate" id="formCadastroUsuario" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="card-body">
+                            @if(isset($errors) && count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="form-row">
                                 <div class="col">
                                     <label for="name">Nome</label>
-                                    <input type="text" class="form-control" id="aome" name="name">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           value="{{old('name')}}">
                                 </div>
                             </div>
 
                             <div class="form-row d-flex align-items-center">
                                 <div class="col">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="email" name="email">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           value="{{old('email')}}">
                                 </div>
                                 <div class="col">
                                     <label for="cpf" class="form-label">CPF</label>
-                                    <input type="text" class="form-control" id="cpf" name="cpf">
+                                    <input type="text" class="form-control" id="cpf" name="cpf" value="{{old('cpf')}}">
                                 </div>
                             </div>
                         </div>
@@ -158,13 +160,9 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
 
-    {{-- Jquery Validate --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.js"></script>
-
     {{-- Locais --}}
     <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
-    <script src="{{asset('js/dashboard/usuarios/validacaoCadastro.js')}}"></script>
+    <script src="{{asset('js/dashboard/usuarios/form-validate.js')}}"></script>
 
     <script>
         $('.disable-confirm').on('click', function () {
@@ -223,4 +221,11 @@
             })
         });
     </script>
+    @if(isset($errors) && count($errors) > 0)
+        <script>
+            $(document).ready(function () {
+                $('#create-user').modal('show');
+            });
+        </script>
+    @endif
 @stop

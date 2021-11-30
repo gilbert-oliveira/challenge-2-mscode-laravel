@@ -35,7 +35,6 @@
                 </thead>
                 <tbody>
 
-
                 @foreach($customers as $customer)
                     <tr>
                         <td>
@@ -45,7 +44,15 @@
                         <td>{{$customer->email}}</td>
                         <td>{{$customer->created_at}}</td>
                         <td>{{$customer->updated_at}}</td>
-                        <td></td>
+                        <td>
+                            <a class="btn btn-sm btn-primary w-100 edit-customer"
+                               data-edit-id="{{$customer->id}}"
+                               data-edit-name="{{$customer->name}}"
+                               data-edit-document="{{$customer->document}}"
+                               data-edit-email="{{$customer->email}}">
+                                <i class="far fa-edit"></i>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach()
 
@@ -64,32 +71,95 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Cadsatro de Clientes</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cadasatro de Clientes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <!-- form start -->
-                <form id="formCadastroUsuario" method="POST">
+                <form class="form-validate" id="formCadastroUsuario" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="card-body">
+                            @if(isset($errors) && count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="form-row">
                                 <div class="col">
                                     <label for="name">Nome Completo</label>
-                                    <input type="text" class="form-control" id="aome" name="name">
+                                    <input type="text" class="form-control" id="nome" name="name"
+                                           value="{{old('name')}}">
                                 </div>
                             </div>
 
                             <div class="form-row d-flex align-items-center">
                                 <div class="col">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="email" name="email">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           value="{{old('email')}}">
                                 </div>
                                 <div class="col">
-                                    <label for="cpf" class="form-label">CPF / CNPJ</label>
-                                    <input type="text" class="form-control" id="document" name="document">
+                                    <label for="document" class="form-label">CPF / CNPJ</label>
+                                    <input type="text" class="form-control" id="document" name="document"
+                                           value="{{old('document')}}">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Clientes-->
+    <div class="modal fade" id="editar-cliente" tabindex="-1" role="dialog" aria-labelledby="editar-cliente"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title-editar-cliente">Editar Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- form start -->
+                <form class="form-validate-edit" id="form-edit-customer" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" value="put">
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="name">Nome Completo</label>
+                                    <input type="text" class="form-control edit-customer-name" id="nome" name="name"
+                                           value="{{old('name')}}">
+                                </div>
+                            </div>
+
+                            <div class="form-row d-flex align-items-center">
+                                <div class="col">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control edit-customer-email" id="email" name="email"
+                                           value="{{old('email')}}">
+                                </div>
+                                <div class="col">
+                                    <label for="document" class="form-label">CPF / CNPJ</label>
+                                    <input type="text" class="form-control edit-customer-document" id="document"
+                                           name="document"
+                                           value="{{old('document')}}">
+                                </div>
+                                <input type="hidden" name="id" id="id" class="edit-customer-id">
                             </div>
                         </div>
                     </div>
@@ -126,5 +196,23 @@
 
     {{-- Locais --}}
     <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
-    <script src="{{asset('js/dashboard/usuarios/validacaoCadastro.js')}}"></script>
+    <script src="{{asset('js/dashboard/customers/form-validate.js')}}"></script>
+
+    <script>
+        $('.edit-customer').on('click', function () {
+            let id = $(this).data('edit-id');
+            let name = $(this).data('edit-name');
+            let email = $(this).data('edit-email');
+            let document = $(this).data('edit-document');
+
+            $('.edit-customer-id').val(id);
+            $('.edit-customer-name').val(name);
+            $('.edit-customer-email').val(email);
+            $('.edit-customer-document').val(document);
+
+            $('#editar-cliente').modal('show');
+
+            console.log($('#editar-cliente'))
+        });
+    </script>
 @stop

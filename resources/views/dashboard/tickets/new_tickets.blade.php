@@ -4,8 +4,6 @@
 
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-
-
     <!-- include summernote css/ js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 @stop
@@ -16,7 +14,14 @@
 @stop
 
 @section('content')
-    <form action="" method="POST" enctype="multipart/form-data">
+    @if($errors)
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger">
+                {{$error}}
+            </div>
+        @endforeach
+    @endif
+    <form action="" method="POST" enctype="multipart/form-data" class="form-validate">
         @csrf
         <div class="row">
 
@@ -28,7 +33,7 @@
 
                     <div class="card-body">
 
-                        <div class="form-group row">
+                        <div class="form-row">
                             <div class="col">
                                 <label for="title">Título</label>
                                 <input type="text" class="form-control" name="title" id="title">
@@ -62,8 +67,8 @@
                             </div>
                         </div>
 
-                    </div><!-- /.card-body -->
-                </div><!-- /.card -->
+                    </div>
+                </div>
             </div>
 
             <div class="col-md-12">
@@ -75,8 +80,8 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile" name="attachments[]" multiple>
-                                    <label class="custom-file-label" for="exampleInputFile">Escolher arquivo</label>
+                                    <input type="file" class="custom-file-input" id="attachments" name="attachments[]" multiple>
+                                    <label class="custom-file-label" for="attachments">Escolher arquivo</label>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +96,6 @@
             </div>
         </div>
     </form>
-
 @stop
 
 @section('scripts')
@@ -102,4 +106,10 @@
     <!-- Custom files input -->
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <script src="{{asset('js/dashboard/tickets/custom-file-input.js')}}"></script>
+
+    <!-- Jquery Validate -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.js"></script>
+
+    <script src="{{asset('js/dashboard/tickets/form-validate.js')}}"></script>
 @stop

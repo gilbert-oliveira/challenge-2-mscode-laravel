@@ -38,13 +38,29 @@
                         <td>{{$ticket->category()->name}}</td>
                         <td>{{$ticket->created_at}}</td>
                         <td class="text-center">
-                            <a class="btn btn-info btn-sm" href="{{route('dashboard.tickets.details', $ticket->id)}}">
-                                <i class="fas fa-info-circle"></i> Detalhes
-                            </a>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-info btn-sm w-100"
+                                       href="{{route('dashboard.tickets.details', $ticket->id)}}">
+                                        <i class="fas fa-info-circle"></i> Detalhes
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <form method="POST" id="assumed-tickets"
+                                          action="{{route('dashboard.tickets.assume')}}">
+                                        @csrf
+                                        <input type="hidden" id="input-assumed-ticket" name="id"
+                                               value="">
 
-                            <a class="btn btn-success btn-sm">
-                                <i class="fas fa-user-tag"></i> Assumir
-                            </a>
+                                        <a class="btn btn-success btn-sm w-100 assumed-ticket"
+                                           data-id="{{$ticket->id}}">
+                                            <i class="fas fa-user-tag"></i> Assumir
+                                        </a>
+                                    </form>
+
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                 @endforeach()
@@ -74,4 +90,34 @@
 
     {{-- Locais --}}
     <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
+
+    <script>
+        $('.assumed-ticket').on('click', function () {
+            // recupera o data-id
+            let id = $(this).data('id');
+
+            // insere Id(id);
+            $('input[id=input-assumed-ticket]').val(id);
+
+            // Mensagem de confirmação
+            Swal.fire({
+                title: 'Deseja assumir o ticket?',
+                text: "Após assumido o ticket ficará sobre sua responsabilidade!",
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#4CA847',
+                cancelButtonColor: '#424242',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Sim, Assumir!'
+            }).then((result) => {
+                // Confirma a exclusão
+                if (result.isConfirmed) {
+                    //Recupera o formulário
+                    let form = $('#assumed-tickets');
+                    //Envia o formulário
+                    form.submit();
+                }
+            })
+        });
+    </script>
 @stop

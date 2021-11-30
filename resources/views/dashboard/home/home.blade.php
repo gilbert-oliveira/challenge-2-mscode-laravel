@@ -19,9 +19,6 @@
 
                             <p>Total de Tickets Abertos</p>
                         </div>
-                        <!-- <div class="icon">
-                          <i class="fas fa-plus"></i>
-                        </div> -->
                     </div>
                 </div>
                 <!-- ./col -->
@@ -60,7 +57,7 @@
                 <div class="col-8">
                     <div class="card card-success h-100">
                         <div class="card-header">
-                            <h3 class="card-title"><strong>Tickets abertos por dia no mês</strong></h3>
+                            <h6><strong>Tickets abertos por dia no mês</strong></h6>
                         </div>
                         <div class="card-body">
                             <div>
@@ -76,8 +73,7 @@
                 <div class="col-4">
                     <div class="card card-success h-100">
                         <div class="card-header">
-                            <h3 class="card-title"><strong>Tickets Finalizados</strong> <i
-                                    class="fas fa-times text-white-50"></i> <strong>Tickets Abertos</strong></h3>
+                            <h6><strong>Tickets Finalizados</strong> X <strong>Tickets Abertos</strong></h6>
                         </div>
                         <div class="card-body">
                             <div>

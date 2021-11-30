@@ -14,24 +14,15 @@
     <li class="breadcrumb-item active">Categorias</li>
 @stop
 
-@section('header', 'Categorias de Tickets')
-
 @section('content')
     <div class="row mb-2 ">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#cadastroUsuario">Cadastrar</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#createCategory">Cadastrar</button>
         </div>
     </div>
 
     <div class="card">
-        @if(isset($errors) && count($errors) > 0)
-            <div class="alert alert-danger">
-                @foreach($errors->all() as $error)
-                    <p>{{$error}}</p>
-                @endforeach
-            </div>
-        @endif
-    <!-- /.card-header -->
+        <!-- /.card-header -->
         <div class="card-body">
             <table id="usuarios" class="table table-sm table-bordered table-striped ">
                 <thead>
@@ -43,17 +34,34 @@
                 </tr>
                 </thead>
                 <tbody>
-
-
                 @foreach($categories as $category)
                     <tr>
                         <td>{{$category->name}}</td>
                         <td>{{($category->created_at)->format('d/m/Y H:i:s')}}</td>
                         <td>{{$category->updated_at}}</td>
-                        <td></td>
+                        <td class="text-center">
+                            <div class="row">
+                                <div class="col">
+
+                                    <form id="deleteCategory" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <a class="btn btn-sm btn-danger w-100 delete-confirm"
+                                           data-id="{{$category->id}}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </form>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-sm btn-primary w-100 edit-confirm"
+                                       data-edit-id="{{$category->id}}" data-edit-name="{{$category->name}}">
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach()
-
                 </tbody>
             </table>
         </div>
@@ -63,8 +71,8 @@
 @stop
 
 @section('modals')
-    <!-- Modal Cadastro Clientes-->
-    <div class="modal fade" id="cadastroUsuario" tabindex="-1" role="dialog" aria-labelledby="modalCadastroUsuario"
+    <!-- Modal Cadastro Categorias-->
+    <div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="modalCreateCategory"
          aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -75,14 +83,65 @@
                     </button>
                 </div>
                 <!-- form start -->
-                <form id="formCadastroUsuario" method="POST">
+                <form class="form-validate" id="formCreateCategory" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="card-body">
+                            @if(isset($errors) && count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <p>{{$error}}</p>
+                                    @endforeach
+                                </div>
+                            @endif
                             <div class="form-row">
                                 <div class="col">
                                     <label for="name">Nome da categoria</label>
-                                    <input type="text" class="form-control" id="aome" name="name" value="{{old('name')}}">
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           value="{{old('name')}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Categorias-->
+    <div class="modal fade" id="editCategory" tabindex="-1" role="dialog" aria-labelledby="modalCreateCategory"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- form start -->
+                <form class="form-validate-edit" id="formEditCategory" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="modal-body">
+                        <div class="card-body">
+                            @if(isset($errors) && count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <p>{{$error}}</p>
+                                    @endforeach
+                                </div>
+                            @endif
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="name">Nome da categoria</label>
+                                    <input type="text" class="form-control input-edit" id="name" name="name"
+                                           value="{{old('name')}}">
                                 </div>
                             </div>
                         </div>
@@ -120,5 +179,87 @@
 
     {{-- Locais --}}
     <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
-    <script src="{{asset('js/dashboard/usuarios/validacaoCadastro.js')}}"></script>
+    <script src="{{asset('js/dashboard/categories/form-validate.js')}}"></script>
+
+    @if(isset($errors) && count($errors) > 0)
+
+        <script>
+            $(document).ready(function () {
+                $('#createCategory').modal('show');
+            });
+        </script>
+    @endif
+
+    <script>
+        $('.delete-confirm').on('click', function () {
+            // recupera o data-id
+            let id = $(this).data('id');
+
+            // recupera o formulário
+            let form = $('#deleteCategory');
+
+            // Adiciona a action do formulário
+            form.attr('action', '{{route('dashboard.tickets.categories.delete', 'id')}}'.replace('id', id));
+
+            // Mensagem de confirmação
+            Swal.fire({
+                title: 'Deseja excluir a categoria?',
+                text: "Você não poderá reverter isso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#cb0000',
+                cancelButtonColor: '#2B77C0',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Sim, deletar!'
+            }).then((result) => {
+                // Confirma a exclusão
+                if (result.isConfirmed) {
+                    // Envia o formulário
+                    form.submit();
+                }
+            })
+        });
+    </script>
+
+    <script>
+        $('.edit-confirm').on('click', function () {
+                // recupera o data-id
+                let id = $(this).data('edit-id');
+
+                // recupera o formulário
+                let form = $('#formEditCategory');
+
+                // Adiciona a action do formulário
+                form.attr('action', '{{route('dashboard.tickets.categories.edit', 'id')}}'.replace('id', id));
+
+                $('#name-error').remove()
+
+                let input = $('.input-edit');
+                input.removeClass('is-invalid');
+
+                input.val($(this).data('edit-name'));
+                $('#editCategory').modal('show');
+            }
+        )
+
+        $('.submit-edit').on('click', function () {
+            // Mensagem de confirmação
+            Swal.fire({
+                title: 'Deseja editar a categoria?',
+                text: "Você não poderá revertera alterção e isso afetará os tickets já cadastrados!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#2ccb93',
+                cancelButtonColor: '#2B77C0',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Sim, editar!'
+            }).then((result) => {
+                // Confirma a exclusão
+                if (result.isConfirmed) {
+                    let form = $('.editCategory');
+                    form.submit();
+                }
+            })
+        });
+    </script>
 @stop
