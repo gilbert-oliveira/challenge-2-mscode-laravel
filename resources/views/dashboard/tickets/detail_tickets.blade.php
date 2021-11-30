@@ -38,12 +38,12 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 col-md-6">
                             <label>Título</label>
                             <li class="list-group-item">{{ $ticket->title }}</li>
                         </div>
 
-                        <div class="col">
+                        <div class="col-12 col-md-6">
                             <label>Categoria</label>
                             <li class="list-group-item">{{ $ticket->category()->name }}</li>
                         </div>

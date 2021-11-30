@@ -39,20 +39,18 @@
                         <td>{{$ticket->created_at}}</td>
                         <td class="text-center">
                             <div class="row">
-                                <div class="col">
-                                    <a class="btn btn-info btn-sm w-100"
+                                <div class="col d-flex justify-content-center">
+                                    <a class="btn btn-info btn-sm mx-1"
                                        href="{{route('dashboard.tickets.details', $ticket->id)}}">
                                         <i class="fas fa-info-circle"></i> Detalhes
                                     </a>
-                                </div>
-                                <div class="col">
-                                    <form action="{{route('dashboard.tickets.reopen')}}" id="reopen-ticket" method="POST">
 
-
+                                    <form action="{{route('dashboard.tickets.reopen')}}" id="reopen-ticket"
+                                          method="POST" class="mx-1">
                                         <input type="hidden" id="input-reopen-ticket" name="id"
                                                value="">
                                         @csrf
-                                        <a class="btn btn-secondary btn-sm w-100 reopen-ticket"
+                                        <a class="btn btn-secondary btn-sm reopen-ticket"
                                            data-id="{{$ticket->id}}">
                                             <i class="fas fa-user-tag"></i> Reabrir
                                         </a>

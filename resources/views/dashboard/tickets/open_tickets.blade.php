@@ -39,20 +39,19 @@
                         <td>{{$ticket->created_at}}</td>
                         <td class="text-center">
                             <div class="row">
-                                <div class="col">
-                                    <a class="btn btn-info btn-sm w-100"
+                                <div class="col d-flex justify-content-between">
+                                    <a class="btn btn-info btn-sm"
                                        href="{{route('dashboard.tickets.details', $ticket->id)}}">
                                         <i class="fas fa-info-circle"></i> Detalhes
                                     </a>
-                                </div>
-                                <div class="col">
+
                                     <form method="POST" id="assumed-tickets"
                                           action="{{route('dashboard.tickets.assume')}}">
                                         @csrf
                                         <input type="hidden" id="input-assumed-ticket" name="id"
                                                value="">
 
-                                        <a class="btn btn-success btn-sm w-100 assumed-ticket"
+                                        <a class="btn btn-success btn-sm assumed-ticket"
                                            data-id="{{$ticket->id}}">
                                             <i class="fas fa-user-tag"></i> Assumir
                                         </a>

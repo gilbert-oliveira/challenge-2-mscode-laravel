@@ -41,19 +41,18 @@
                         <td>{{$category->updated_at}}</td>
                         <td class="text-center">
                             <div class="row">
-                                <div class="col">
+                                <div class="col d-flex justify-content-center">
 
-                                    <form id="deleteCategory" method="POST">
+                                    <form id="deleteCategory" method="POST" class="mx-1">
                                         @csrf
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <a class="btn btn-sm btn-danger w-100 delete-confirm"
+                                        <a class="btn btn-sm btn-danger delete-confirm"
                                            data-id="{{$category->id}}">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </form>
-                                </div>
-                                <div class="col">
-                                    <a class="btn btn-sm btn-primary w-100 edit-confirm"
+
+                                    <a class="btn btn-sm btn-primary mx-1 edit-confirm"
                                        data-edit-id="{{$category->id}}" data-edit-name="{{$category->name}}">
                                         <i class="far fa-edit"></i>
                                     </a>

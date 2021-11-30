@@ -39,13 +39,12 @@
                         <td>{{$ticket->created_at}}</td>
                         <td class="text-center">
                             <div class="row">
-                                <div class="col">
-                                    <a class="btn btn-info btn-sm w-100 assumed-ticket"
+                                <div class="col d-flex justify-content-between">
+                                    <a class="btn btn-info btn-sm assumed-ticket"
                                        href="{{route('dashboard.tickets.details', $ticket->id)}}">
                                         <i class="fas fa-info-circle"></i> Detalhes
                                     </a>
-                                </div>
-                                <div class="col">
+
                                     <form method="POST" id="finish-ticket"
                                           action="{{route('dashboard.tickets.finish')}}">
 
@@ -54,17 +53,16 @@
                                         <input type="hidden" id="input-finish-ticket" name="id"
                                                value="">
 
-                                        <a class="btn btn-secondary btn-sm w-100 finish-ticket"
+                                        <a class="btn btn-secondary btn-sm finish-ticket"
                                            data-id="{{$ticket->id}}">
                                             <i class="fas fa-user-tag"></i> Finalizar
                                         </a>
                                     </form>
-                                </div>
-                                <div class="col">
+
                                     <button type="button" data-toggle="modal" data-id="{{$ticket->id}}"
                                             data-target="#transfer-ticket"
-                                            class="btn btn-success transfer-ticket">
-                                        Transferir Ticket
+                                            class="btn btn-success btn-sm transfer-ticket">
+                                        <i class="fas fa-exchange-alt"></i> Transferir
                                     </button>
                                 </div>
                             </div>
