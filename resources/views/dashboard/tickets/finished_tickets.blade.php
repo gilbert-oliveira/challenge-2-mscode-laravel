@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
 
-                @foreach($assumedTickets as $ticket)
+                @foreach($finishedTickets as $ticket)
 
                     <tr>
                         <td>{{$ticket->id}}</td>
