@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'master' => false,
             'active' => $this->faker->boolean(),
-            'password' => password_hash('123456', PASSWORD_DEFAULT), // password
+            'password' => password_hash('12345678', PASSWORD_DEFAULT), // password
             'remember_token' => Str::random(10),
         ];
     }
