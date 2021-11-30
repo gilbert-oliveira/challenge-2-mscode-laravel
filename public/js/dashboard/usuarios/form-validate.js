@@ -17,7 +17,8 @@ $(function () {
             },
             cpf: {
                 required: true,
-                minlength: 11
+                minlength: 11,
+                maxlength: 14
             },
             document: {
                 required: true,

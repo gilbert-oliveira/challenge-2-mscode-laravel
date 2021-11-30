@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|email',
-            'cpf' => 'required|min:11|max:11',
+            'cpf' => 'required|min:11|max:14',
         ];
     }
 }

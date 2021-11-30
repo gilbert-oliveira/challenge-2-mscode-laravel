@@ -44,7 +44,7 @@
                                 @endif
 
                             </td>
-                            <td>{{$user->cpf}}</td>
+                            <td class="table-cpf">{{$user->cpf}}</td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at}}</td>
                             <td class="text-center">
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="col">
                                     <label for="cpf" class="form-label">CPF</label>
-                                    <input type="text" class="form-control" id="cpf" name="cpf" value="{{old('cpf')}}">
+                                    <input type="text" class="form-control input-create-user" id="cpf" name="cpf" value="{{old('cpf')}}" maxlength="14">
                                 </div>
                             </div>
                         </div>
@@ -228,4 +228,10 @@
             });
         </script>
     @endif
+
+    <script>
+        // mascara a coluna de cpf da tabela
+        $('.input-create-user').mask('000.000.000-00');
+        $('.table-cpf').mask('000.000.000-00');
+    </script>
 @stop

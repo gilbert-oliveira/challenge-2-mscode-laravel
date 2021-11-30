@@ -46,7 +46,8 @@ class UsersController extends Controller
 
         // Cria um novo usuário
         $user = new User();
-        $user->fill($request->all('name', 'email', 'cpf'));// Preenche os campos do usuário
+        $user->fill($request->all('name', 'email'));// Preenche os campos do usuário
+        $user->cpf = preg_replace('/\D/', '', $request->cpf);// Remove os caracteres especiais do cpf
         $user->master = false;// Não é um usuário master
         $user->active = true;// O usuário está ativo
         $user->password = password_hash($password, PASSWORD_DEFAULT);// Gera uma senha criptografada
@@ -55,7 +56,7 @@ class UsersController extends Controller
         if (User::where('email', request('email'))->first())
             return redirect()->back()->withInput()->with('error', 'E-mail já cadastrado!');
         // Verifica se já existe um usuário com o mesmo CPF
-        if (User::where('cpf', request('cpf'))->first())
+        if (User::where('cpf', preg_replace('/\D/', '', $request->cpf))->first())
             return redirect()->back()->withInput()->with('error', 'CPF já cadastrado!');
 
         // Salva o usuário
