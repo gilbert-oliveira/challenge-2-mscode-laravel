@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Http\Controllers\HomeController;
 use App\Models\Category;
 use App\Models\Customer;
+
 //use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -23,7 +24,7 @@ class TicketFactory extends Factory
         $days = HomeController::getDaysTheMonth();
 
         return [
-            'users_id' => rand(0,1) ? User::factory()->create()->id : null,
+            'users_id' => rand(0, 1) ? User::factory()->create()->id : null,
             'categories_id' => Category::factory()->create()->id,
             'customers_id' => Customer::factory()->create()->id,
             'title' => $this->faker->unique()->sentence(),
@@ -31,7 +32,7 @@ class TicketFactory extends Factory
             'finished' => $this->faker->boolean(),
             'reopened' => $this->faker->boolean(),
             'token' => Str::random(32),
-            'created_at' => $days[rand(0, count($days) -1)],
+            'created_at' => date('Y-m-d H:i:s', strtotime($days[rand(0, count($days) - 1)] . ' ' . rand(0, 23) . ':' . rand(0, 59) . ':' . rand(0, 59))),
         ];
     }
 }
