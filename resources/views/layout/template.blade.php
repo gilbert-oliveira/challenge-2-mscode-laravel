@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>@yield('title') - {{config('app.name')}}</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('img/20x20.png')}}">
 
     <!-- Google Font: Source Sans Pro CDN-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"

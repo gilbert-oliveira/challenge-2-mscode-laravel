@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>401</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('img/20x20.png')}}">
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:400" rel="stylesheet">

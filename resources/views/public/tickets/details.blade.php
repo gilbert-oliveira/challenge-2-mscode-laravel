@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Detalhes - {{config('app.name')}}</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('img/20x20.png')}}">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
