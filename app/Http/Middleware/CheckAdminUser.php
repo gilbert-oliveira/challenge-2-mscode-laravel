@@ -22,6 +22,7 @@ class CheckAdminUser
             return redirect()->route('dashboard.home')->with('error', 'Você não tem permissão para acessar a página.');
         }
 
+        // Continua a requisição
         return $next($request);
     }
 }

@@ -7,7 +7,9 @@ use Exception;
 use Carbon\Carbon;
 use DateTimeZone, DatePeriod, DateTime, DateInterval;
 
-
+/**
+ * Classe para controle da página inicial do sistema.
+ */
 class HomeController extends Controller
 {
 
@@ -79,7 +81,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Método responsável por retornar os tickets aberto.
+     * Método responsável por retornar os tickets abertos.
      * @return int
      */
     private static function getOpenTickets(): int

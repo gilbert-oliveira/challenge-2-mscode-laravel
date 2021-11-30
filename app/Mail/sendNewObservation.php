@@ -19,7 +19,11 @@ class sendNewObservation extends Mailable
      */
     public function __construct(Observation $observation)
     {
+
+        // Define a observação.
         $this->observation = $observation;
+
+        // Define o cliente.
         $this->customer = $observation->ticket()->customer();
     }
 
@@ -30,10 +34,17 @@ class sendNewObservation extends Mailable
      */
     public function build()
     {
+
+        // Define o assunto.
         $this->subject('Nova observação no seu ticket!');
+
+        // Define o destinatário.
         $this->to($this->customer->email, $this->customer->name);
 
+        // Recupera a observação.
         $observation = $this->observation;
+
+        // Retorna a mensagem.
         return $this->markdown('emails.sendNewObservation', compact('observation'));
     }
 }

@@ -10,8 +10,8 @@ class CheckUserActive
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -25,6 +25,8 @@ class CheckUserActive
 
             return redirect()->route('login')->withErrors(['Sua conta não está ativa. Por favor, entre em contato com o administrador!']);
         }
+
+        // Se o usuário estiver ativo, prossegue com a requisição.
         return $next($request);
     }
 }

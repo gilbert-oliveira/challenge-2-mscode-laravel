@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Mapeamento das factories
         $this->call(FirstUserTableSeeder::class);
         $this->call(TicketTableSeeder::class);
     }

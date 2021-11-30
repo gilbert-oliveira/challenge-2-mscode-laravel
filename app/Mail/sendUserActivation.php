@@ -19,6 +19,8 @@ class sendUserActivation extends Mailable
      */
     public function __construct(User $user)
     {
+
+        // Define o usuário.
         $this->user = $user;
     }
 
@@ -29,10 +31,17 @@ class sendUserActivation extends Mailable
      */
     public function build()
     {
+
+        // Define o assunto.
         $this->subject('Reativação da conta!');
+
+        // Define o remetente.
         $this->to($this->user->email, $this->user->name);
 
+        // Recupera o usuário.
         $user = $this->user;
+
+        // Retorna a mensagem.
         return $this->markdown('emails.sendUserActivation', compact('user'));
     }
 }

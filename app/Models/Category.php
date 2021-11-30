@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,9 +14,13 @@ class Category extends Model
         'name'
     ];
 
-    // Relationships hasMany
+    /**
+     * Método responsável por retornar todos os tickets de uma categoria.
+     * @return Collection
+     */
     public function tickets()
     {
+        // Categoria tem muitos tickets.
         return $this->hasOne(Ticket::class, 'categories_id' )->get();
     }
 

@@ -53,7 +53,7 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', 'check.active'])->group(
 
 
     // Grupo de rotas para usuários
-    Route::prefix('users')->middleware(['check.admin'])->group(function () {
+    Route::prefix('usuarios')->middleware(['check.admin'])->group(function () {
 
         // Rota para listagem de usuários
         Route::get('/', [UsersController::class, 'getUsers'])->name('dashboard.users');
