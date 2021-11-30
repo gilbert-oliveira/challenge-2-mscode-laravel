@@ -98,6 +98,9 @@ Route::prefix('dashboard')->middleware(['auth:sanctum', 'check.active'])->group(
         // Rota para cadastro de tickets
         Route::post('criar', [TicketController::class, 'postTickets'])->name('dashboard.tickets.new');
 
+        // Rota para adicionar um attachment a um ticket
+        Route::post('attachment/{id}', [AttachmentController::class, 'postAttachment'])->name('dashboard.attachment.new');
+
         // Rota para assumir tickets
         Route::post('assumir', [TicketController::class, 'assumeTicket'])->name('dashboard.tickets.assume');
         // Rota para finalizar tickets
