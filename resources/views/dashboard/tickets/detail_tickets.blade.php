@@ -198,6 +198,25 @@
                         @endif
                     </div>
                 </div>
+                <div class="card-footer">
+                    <form method="POST" action="{{route('dashboard.attachment.new', $ticket->id)}}"
+                          enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+
+                                <div class="input-group mr-2">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="attachments"
+                                               name="attachments[]" multiple required>
+                                        <label class="custom-file-label" for="attachments">Escolher arquivo</label>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success">Anexar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
