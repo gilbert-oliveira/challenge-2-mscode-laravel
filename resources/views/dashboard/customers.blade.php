@@ -107,7 +107,7 @@
                                 <div class="col">
                                     <label for="document" class="form-label">CPF / CNPJ</label>
                                     <input type="text" class="form-control input-document" id="document"
-                                           name="document"  value="{{old('document')}}">
+                                           name="document" value="{{old('document')}}">
                                 </div>
                             </div>
                         </div>
@@ -194,34 +194,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.js"></script>
 
     {{-- Locais --}}
-    <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
+    <script src="{{asset('js/dashboard/users/datatable.js')}}"></script>
     <script src="{{asset('js/dashboard/customers/form-validate.js')}}"></script>
 
-    <script>
-        $('.edit-customer').on('click', function () {
-            let id = $(this).data('edit-id');
-            let name = $(this).data('edit-name');
-            let email = $(this).data('edit-email');
-            let document = $(this).data('edit-document');
+    <!-- Modal de editar cliente -->
+    <script src="{{asset('js/dashboard/customers/modal-edit-customer.js')}}"></script>
 
-            $('.edit-customer-id').val(id);
-            $('.edit-customer-name').val(name);
-            $('.edit-customer-email').val(email);
-            $('.edit-customer-document').val(document);
-
-            $('#editar-cliente').modal('show');
-        });
-    </script>
-
-    <script>
-        var masks = ['000.000.000-000', '00.000.000/0000-00'];
-
-        let tableDocument = $('.table-cpf-cnpj')
-        tableDocument.mask((document.length = 11) ? masks[1] : masks[0]);
-
-        $("input[id*='document']").inputmask({
-            mask: ['999.999.999-99', '99.999.999/9999-99'],
-            keepStatic: true
-        });
-    </script>
+    <!-- mask -->
+    <script src="{{asset('js/dashboard/customers/mask.js')}}"></script>
 @stop

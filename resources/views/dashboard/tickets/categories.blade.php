@@ -177,7 +177,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.js"></script>
 
     {{-- Locais --}}
-    <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
+    <script src="{{asset('js/dashboard/users/datatable.js')}}"></script>
     <script src="{{asset('js/dashboard/categories/form-validate.js')}}"></script>
 
     @if(isset($errors) && count($errors) > 0)

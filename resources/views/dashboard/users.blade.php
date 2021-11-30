@@ -128,7 +128,8 @@
                                 </div>
                                 <div class="col">
                                     <label for="cpf" class="form-label">CPF</label>
-                                    <input type="text" class="form-control input-create-user" id="cpf" name="cpf" value="{{old('cpf')}}" maxlength="14">
+                                    <input type="text" class="form-control input-create-user" id="cpf" name="cpf"
+                                           value="{{old('cpf')}}" maxlength="14">
                                 </div>
                             </div>
                         </div>
@@ -161,66 +162,12 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
 
     {{-- Locais --}}
-    <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
-    <script src="{{asset('js/dashboard/usuarios/form-validate.js')}}"></script>
+    <script src="{{asset('js/dashboard/users/datatable.js')}}"></script>
+    <script src="{{asset('js/dashboard/users/form-validate.js')}}"></script>
+    <script src="{{asset('js/dashboard/users/mask.js')}}"></script>
 
-    <script>
-        $('.disable-confirm').on('click', function () {
-            // recupera o data-id
-            let id = $(this).data('id');
-
-            // insere Id(id);
-            $('input[id=input-disble-user]').val(id);
-
-            // Mensagem de confirmação
-            Swal.fire({
-                title: 'Deseja desativar o usuário?',
-                text: "Será enviado um e-mail para o usuário informando a desativação de acesso!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#cb0000',
-                cancelButtonColor: '#2B77C0',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Sim, desativar!'
-            }).then((result) => {
-                // Confirma a exclusão
-                if (result.isConfirmed) {
-                    //Recupera o formulário
-                    let form = $('#disble-user');
-                    //Envia o formulário
-                    form.submit();
-                }
-            })
-        });
-
-        $('.enable-confirm').on('click', function () {
-            // recupera o data-id
-            let id = $(this).data('id');
-
-            // insere Id(id);
-            $('input[id=input-enable-user]').val(id);
-
-            // Mensagem de confirmação
-            Swal.fire({
-                title: 'Deseja ativar o usuário?',
-                text: "Será enviado um e-mail para o usuário informando a ativação de acesso!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#2B77C0',
-                cancelButtonColor: '#cb0000',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Sim, Ativar!'
-            }).then((result) => {
-                // Confirma a exclusão
-                if (result.isConfirmed) {
-                    //Recupera o formulário
-                    let form = $('#enable-user');
-                    //Envia o formulário
-                    form.submit();
-                }
-            })
-        });
-    </script>
+    {{-- SweetAlert2 --}}
+    <script src="{{asset('js/dashboard/users/swal.js')}}"></script>
     @if(isset($errors) && count($errors) > 0)
         <script>
             $(document).ready(function () {
@@ -228,10 +175,4 @@
             });
         </script>
     @endif
-
-    <script>
-        // mascara a coluna de cpf da tabela
-        $('.input-create-user').mask('000.000.000-00');
-        $('.table-cpf').mask('000.000.000-00');
-    </script>
 @stop

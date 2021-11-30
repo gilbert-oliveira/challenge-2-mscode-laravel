@@ -94,6 +94,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
+    <!-- Constants grafico -->
     <script>
         const labelsBar = @json(array_keys($tickets_for_days));
         const datasBar = @json(array_values($tickets_for_days));
@@ -102,6 +103,9 @@
         const percentCompleted = {{$completed_tickets}};
         const datasDonuts = [Math.round(percentCompleted), Math.round(percentOpen)];
     </script>
+
+    <!-- Grafico de barras -->
     <script src="{{asset('js/dashboard/home/chart_bar.js')}}"></script>
+    <!-- Grafico de donuts -->
     <script src="{{asset('js/dashboard/home/chart_donuts.js')}}"></script>
 @stop

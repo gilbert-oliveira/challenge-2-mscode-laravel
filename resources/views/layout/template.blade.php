@@ -112,7 +112,9 @@
 <!-- jQuery CDN-->
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.11.2/jquery.mask.js" integrity="sha512-bwanfE29Vxh7VGuxx44U2WkSG9944fjpYRTC3GDUjh0UJ5FOdCQxMJgKWBnlxP5hHKpFJKmawufWEyr5pvwYVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.11.2/jquery.mask.js"
+        integrity="sha512-bwanfE29Vxh7VGuxx44U2WkSG9944fjpYRTC3GDUjh0UJ5FOdCQxMJgKWBnlxP5hHKpFJKmawufWEyr5pvwYVA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://rawgit.com/RobinHerbots/Inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 <!-- Bootstrap 4 CDN-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
@@ -172,27 +174,7 @@
     </script>
 @endif
 
-<script>
-    $('.logout').on('click', function () {
-        // Mensagem de confirmação
-        Swal.fire({
-            title: "Deseja sair do sistema?",
-            showCancelButton: true,
-            confirmButtonColor: '#3BA3B9',
-            cancelButtonColor: '#737373',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Logout!'
-        }).then((result) => {
-            // Confirma a exclusão
-            if (result.isConfirmed) {
-                //Recupera o formulário
-                let form = $('#logout');
-                //Envia o formulário
-                form.submit();
-            }
-        })
-    });
-</script>
+<script src="{{asset('js/dashboard/template/modal-logout.js')}}"></script>
 </body>
 
 </html>

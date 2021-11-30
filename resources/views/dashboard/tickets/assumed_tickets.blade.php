@@ -135,43 +135,11 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
 
     {{-- Locais --}}
-    <script src="{{asset('js/dashboard/usuarios/datatable.js')}}"></script>
+    <script src="{{asset('js/dashboard/users/datatable.js')}}"></script>
 
-    <script>
-        $('.finish-ticket').on('click', function () {
-            // recupera o data-id
-            let id = $(this).data('id');
+    <!-- modal finalizar ticket -->
+    <script src="{{asset('js/dashboard/tickets/modal-finish-ticket.js')}}"></script>
 
-            // insere Id(id);
-            $('input[id=input-finish-ticket]').val(id);
-
-            // Mensagem de confirmação
-            Swal.fire({
-                title: 'Deseja finalizar o ticket?',
-                text: "Após finalizar o ticket o cliente será notificado e ficará sobre sua responsabilidade!",
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonColor: '#4CA847',
-                cancelButtonColor: '#424242',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Sim, Finalizar!'
-            }).then((result) => {
-                // Confirma a exclusão
-                if (result.isConfirmed) {
-                    //Recupera o formulário
-                    let form = $('#finish-ticket');
-                    //Envia o formulário
-                    form.submit();
-                }
-            })
-        });
-    </script>
-
-    <script>
-        $('.transfer-ticket').on('click', function () {
-            let id = $(this).data('id');
-            $('#ticket_id').val(id)
-            console.log($('#ticket_id').val());
-        })
-    </script>
+    <!-- transferir ticket -->
+    <script src="{{asset('js/dashboard/tickets/transfer-ticket.js')}}"></script>
 @stop
