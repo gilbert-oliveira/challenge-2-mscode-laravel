@@ -40,7 +40,7 @@
                         <td>
                             {{$customer->name}}
                         </td>
-                        <td>{{$customer->document}}</td>
+                        <td class="table-cpf-cnpj">{{$customer->document}}</td>
                         <td>{{$customer->email}}</td>
                         <td>{{$customer->created_at}}</td>
                         <td>{{$customer->updated_at}}</td>
@@ -106,8 +106,8 @@
                                 </div>
                                 <div class="col">
                                     <label for="document" class="form-label">CPF / CNPJ</label>
-                                    <input type="text" class="form-control" id="document" name="document"
-                                           value="{{old('document')}}">
+                                    <input type="text" class="form-control input-document" id="document"
+                                           name="document">
                                 </div>
                             </div>
                         </div>
@@ -156,8 +156,7 @@
                                 <div class="col">
                                     <label for="document" class="form-label">CPF / CNPJ</label>
                                     <input type="text" class="form-control edit-customer-document" id="document"
-                                           name="document"
-                                           value="{{old('document')}}">
+                                           name="document">
                                 </div>
                                 <input type="hidden" name="id" id="id" class="edit-customer-id">
                             </div>
@@ -211,8 +210,18 @@
             $('.edit-customer-document').val(document);
 
             $('#editar-cliente').modal('show');
+        });
+    </script>
 
-            console.log($('#editar-cliente'))
+    <script>
+        var masks = ['000.000.000-000', '00.000.000/0000-00'];
+
+        let tableDocument = $('.table-cpf-cnpj')
+        tableDocument.mask((document.length = 14) ? masks[1] : masks[0]);
+
+        $("input[id*='document']").inputmask({
+            mask: ['999.999.999-99', '99.999.999/9999-99'],
+            keepStatic: true
         });
     </script>
 @stop

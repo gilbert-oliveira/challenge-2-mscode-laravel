@@ -13,7 +13,7 @@ $(function () {
             document: {
                 required: true,
                 minlength: 11,
-                maxlength: 14
+                maxlength: 18
             }
         },
         messages: {
@@ -28,7 +28,7 @@ $(function () {
             document: {
                 required: "Por favor, informe um CPF ou CNPJ!",
                 minlength: "O documento deve conter no mínimo 11 caracteres para CPF e 14 para CNPJ!",
-                maxlength: "O documento deve conter no mínimo 11 caracteres para CPF e 14 para CNPJ!",
+                maxlength: "O documento deve conter no máximo 11 caracteres para CPF e 14 para CNPJ!",
 
             }
         },
@@ -61,7 +61,7 @@ $(function () {
             document: {
                 required: true,
                 minlength: 11,
-                maxlength: 14
+                maxlength: 18
             }
         },
         messages: {
@@ -76,7 +76,7 @@ $(function () {
             document: {
                 required: "Por favor, informe um CPF ou CNPJ!",
                 minlength: "O documento deve conter no mínimo 11 caracteres para CPF e 14 para CNPJ!",
-                maxlength: "O documento deve conter no mínimo 11 caracteres para CPF e 14 para CNPJ!",
+                maxlength: "O documento deve conter no máximo 11 caracteres para CPF e 14 para CNPJ!",
 
             }
         },

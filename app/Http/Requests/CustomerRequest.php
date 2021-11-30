@@ -26,7 +26,7 @@ class CustomerRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|email',
-            'document' => 'required|min:11|max:14',
+            'document' => 'required|min:11|max:18',
         ];
     }
 }
