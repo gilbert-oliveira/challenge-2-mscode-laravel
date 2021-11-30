@@ -14,8 +14,8 @@
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <!-- Theme style CDN-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0-rc/css/adminlte.min.css"
           integrity="sha512-YOsl4pnOb5NC868yn1JxAzjJsWkLNtP53uc3OcyAl0Q2R1cwo/mdI1hHSQM8gbIxWj97mKeLoD9R0aiYibFQAA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -40,12 +40,18 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="fas fa-user mr-2"></i>
-                    <span class="ext-muted">Usuário</span>
+                    <span class="ext-muted">{{auth()->user()->name}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    <form id="logout" method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="button" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                        </button>
+                    </form>
+                    <a href="{{route('dashboard.change-password')}}" class="dropdown-item">
+                        <i class="fas fa-key mr-2"></i>
+                        Alterar senha
                     </a>
                 </div>
             </li>
@@ -110,9 +116,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
+
 <!-- AdminLTE App CDN-->
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+
+<!-- Sweet Alert CDN -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- Jquery Validate --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.js"></script>
 
 @yield('scripts')
 @if(session()->has('success'))
@@ -135,6 +148,49 @@
         })
     </script>
 @endif
+
+@if(session()->has('error'))
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'error',
+            title: '{{session()->get('error')}}'
+        })
+    </script>
+@endif
+
+<script>
+    $('.logout').on('click', function () {
+        // Mensagem de confirmação
+        Swal.fire({
+            title: "Deseja sair do sistema?",
+            showCancelButton: true,
+            confirmButtonColor: '#3BA3B9',
+            cancelButtonColor: '#737373',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Logout!'
+        }).then((result) => {
+            // Confirma a exclusão
+            if (result.isConfirmed) {
+                //Recupera o formulário
+                let form = $('#logout');
+                //Envia o formulário
+                form.submit();
+            }
+        })
+    });
+</script>
 </body>
 
 </html>
