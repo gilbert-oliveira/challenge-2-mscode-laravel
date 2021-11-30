@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "98895b35fec156434e7263e520e9bf29",
+    "content-hash": "9faf0e547c27f44a485a8af5a86c8c9a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5801,6 +5801,52 @@
                 }
             ],
             "time": "2021-11-12T11:38:27+00:00"
+        },
+        {
+            "name": "tigo/documentbr",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tigoCaval/document-br.git",
+                "reference": "cf4611ac3e3d029ca0fff192c382bf1eceda82a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tigoCaval/document-br/zipball/cf4611ac3e3d029ca0fff192c382bf1eceda82a5",
+                "reference": "cf4611ac3e3d029ca0fff192c382bf1eceda82a5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tigo\\DocumentBr\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Mit"
+            ],
+            "authors": [
+                {
+                    "name": "Tiago A C Pereira",
+                    "email": "tiagocavalcante57@gmail.com"
+                }
+            ],
+            "description": "Validação de cpf e cnpj",
+            "support": {
+                "issues": "https://github.com/tigoCaval/document-br/issues",
+                "source": "https://github.com/tigoCaval/document-br/tree/v0.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/donate?hosted_button_id=GNFS3L3FRC9K8",
+                    "type": "custom"
+                }
+            ],
+            "time": "2021-05-20T13:28:05+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
