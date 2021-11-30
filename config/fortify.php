@@ -46,9 +46,9 @@ return [
     |
     */
 
-    'username' => 'email',
+    'username' => 'cpf',
 
-    'email' => 'email',
+    'email' => 'cpf',
 
     /*
     |--------------------------------------------------------------------------
@@ -132,14 +132,12 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+//        Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
-        Features::updateProfileInformation(),
-        Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirmPassword' => true,
-        ]),
+        Features::emailVerification(),
+//        Features::updateProfileInformation(),
+//        Features::updatePasswords(),
+//        Features::twoFactorAuthentication(['confirmPassword' => true]),
     ],
 
 ];
