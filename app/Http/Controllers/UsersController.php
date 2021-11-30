@@ -18,6 +18,7 @@ use Illuminate\{
     Routing\Redirector,
     Support\Facades\Mail
 };
+use Tigo\DocumentBr\Cpf;
 
 class UsersController extends Controller
 {
@@ -48,6 +49,11 @@ class UsersController extends Controller
         $user = new User();
         $user->fill($request->all('name', 'email'));// Preenche os campos do usuário
         $user->cpf = preg_replace('/\D/', '', $request->cpf);// Remove os caracteres especiais do cpf
+
+        // Verifica se o cpf é válido
+        if (!(new Cpf())->check($user->cpf))
+            return redirect()->back()->withInput()->with('error', 'CPF inválido');
+
         $user->master = false;// Não é um usuário master
         $user->active = true;// O usuário está ativo
         $user->password = password_hash($password, PASSWORD_DEFAULT);// Gera uma senha criptografada
